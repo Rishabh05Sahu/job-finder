@@ -7,14 +7,14 @@ import { useJobContext } from '@/context/JobContext';
 
 export default function JobList() {
   const { filteredJobs, loading } = useJobContext();
-  
-  const jobsPerPage = 6; 
+
+  const jobsPerPage = 6;
   const [currentPage, setCurrentPage] = useState(1);
 
 
   const totalPages = Math.ceil(filteredJobs.length / jobsPerPage);
 
- 
+
   const startIndex = (currentPage - 1) * jobsPerPage;
   const selectedJobs = filteredJobs.slice(startIndex, startIndex + jobsPerPage);
 
@@ -51,13 +51,28 @@ export default function JobList() {
       </Grid>
 
       <Box className="flex justify-center my-6">
-        <Pagination 
-          count={totalPages} 
-          page={currentPage} 
-          onChange={handlePageChange} 
-          color="primary" 
+        <Pagination
+          count={totalPages}
+          page={currentPage}
+          onChange={handlePageChange}
+          color="primary"
+          size="medium"
+          sx={{
+            width: "100%",
+            display: "flex",
+            justifyContent: "center",
+            "@media (max-width: 600px)": {
+              size: "small",
+              "& .MuiPagination-ul": {
+                flexWrap: "nowrap",
+                overflowX: "hidden",
+                justifyContent: "center"
+              }
+            }
+          }}
         />
       </Box>
+
     </Box>
   );
 }
